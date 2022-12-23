@@ -1,0 +1,33 @@
+in this we will use sliding window method
+
+approach-
+we count the no. of favourable items as X.
+we take a window of size X . and in that we count the no. of unfavourable itmes. that are the no. of swaps..
+wee ittrate this window over whole array and then count min no. of swaps
+
+code-
+int minSwap(int arr[], int n, int k) {
+       int totalCnt = 0;
+       for(int i = 0; i < n; i++){
+           if(arr[i] <= k){
+               totalCnt++;
+           }
+       }
+       int currCnt = 0;
+       for(int i = 0; i < totalCnt; i++){
+            if(arr[i] <= k){
+                currCnt++;
+            }
+       }
+       int ans = totalCnt - currCnt;
+       for(int i = totalCnt; i < n; i++){
+           if(arr[i - totalCnt] <= k){
+               currCnt--;
+           }
+           if(arr[i] <= k){
+               currCnt++;
+           }
+           ans = min(totalCnt - currCnt, ans);
+       }
+       return ans;
+    }
